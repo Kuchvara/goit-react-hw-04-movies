@@ -1,7 +1,7 @@
-// const { Route } = require("react-router");
 import { Route, NavLink, Switch } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import MovieSearch from './pages/MovieSearch';
+import MoviesPage from './pages/MoviesPage';
+import MovieDetailsPage from './pages/MovieDateilsPage';
 
 
 const App = () => (
@@ -13,14 +13,16 @@ const App = () => (
         </NavLink>
       </li>
       <li>
-        <NavLink to='/search'>
-          Search
+        <NavLink to='/movies'>
+          Movies Page
         </NavLink>
       </li>
     </ul>
     <Switch>
       <Route exact path='/' component={HomePage} />
-      <Route path='/search' component={MovieSearch} />
+      <Route path='/movies/:movieId' component={MovieDetailsPage}/>
+      <Route path='/movies' component={MoviesPage} />
+      <Route component={HomePage}/>
     </Switch>
   </>
 );

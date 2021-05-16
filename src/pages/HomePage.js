@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
+import { Link } from "react-router-dom";
 
 // API 
 const ApiKey = '249f222afb1002186f4d88b2b5418b55'
@@ -21,12 +22,13 @@ class HomePage extends Component {
 
   render() {
     const { movies } = this.state;
-    console.log(movies)
+    // console.log(movies)
+    // console.log(this.props.match.url)
 
     return (<>      
       <h1>homaPage</h1>
       {movies.length > 0 && (movies.map(movie => (
-        <li key={movie.id}>{movie.title}</li>
+        <li key={movie.id}> <Link to={`/movies/${movie.id}`}>{movie.title}</Link> </li>
       )))}
       </>
     )
