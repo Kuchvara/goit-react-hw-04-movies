@@ -1,11 +1,6 @@
-import axios from "axios";
 import { Component } from "react";
 import { Link } from "react-router-dom";
-
-// API 
-const ApiKey = '249f222afb1002186f4d88b2b5418b55'
-axios.defaults.baseURL = 'https://api.themoviedb.org/3/'
-const TrendMovieUrl = `trending/movie/day?api_key=${ApiKey}`
+import api from '../services/Api';
 
 class HomePage extends Component {
   state = {
@@ -13,24 +8,23 @@ class HomePage extends Component {
   }
 
   async componentDidMount() {
-    const response = await axios.get(
-      TrendMovieUrl,
-    )      
+    const response = await api.fetchTrending()      
     
     this.setState({ movies: response.data.results });
   }
 
   render() {
-    const { movies } = this.state;
-    // console.log(movies)
-    // console.log(this.props.match.url)
+    const { movies } = this.state;    
 
-    return (<>      
-      <h1>homaPage</h1>
+    return (<ul className='movieList'>     
       {movies.length > 0 && (movies.map(movie => (
-        <li key={movie.id}> <Link to={`/movies/${movie.id}`}>{movie.title}</Link> </li>
+        <li key={movie.id} className='movieList--item'> <Link to={`/movies/${movie.id}`}>
+          <h4>{movie.title}</h4>
+          <img src={`https://www.themoviedb.org/t/p/w500${movie.poster_path}`}
+          alt={movie.title}></img>
+        </Link> </li>
       )))}
-      </>
+      </ul>
     )
   }
 }

@@ -5,15 +5,15 @@ import MovieDetailsPage from './pages/MovieDateilsPage';
 
 
 const App = () => (
-  <>
-    <ul>
-      <li>
-        <NavLink exact to='/'>
+  <div className='container'>
+    <ul className='NavList'>
+      <li className='NavList--item'>
+        <NavLink exact to='/' className='NavLink' activeClassName='NavLink--active'>
           Home Page
         </NavLink>
       </li>
-      <li>
-        <NavLink to='/movies'>
+      <li className='NavList--item'>
+        <NavLink to='/movies' className='NavLink' activeClassName='NavLink--active'>
           Movies Page
         </NavLink>
       </li>
@@ -24,7 +24,7 @@ const App = () => (
       <Route path='/movies' component={MoviesPage} />
       <Route component={HomePage}/>
     </Switch>
-  </>
+  </div>
 );
 
 

@@ -1,45 +1,32 @@
-import axios from 'axios';
 import { Component } from 'react';
-
-// API 
-const ApiKey = '249f222afb1002186f4d88b2b5418b55'
-axios.defaults.baseURL = 'https://api.themoviedb.org/3/'
+import api from '../services/Api.js';
 
 class Cast extends Component {
     state = {
         actors: []
     }
 
-    async componentDidMount() {
-   
-        const response = await axios.get(`/movie/${this.props.movieId}/credits?api_key=${ApiKey}&language=en-US`)        
+    async componentDidMount() {        
+        const response = await api.fetchCast(this.props.movieId)
         
-        this.setState({ actors: response.data.cast })
-        console.log(this.state.actors)
+        this.setState({ actors: response.data.cast })        
     }
 
     render() {
-        const casts = this.state.actors
+        const actors = this.state.actors
         return (
-            <article>
-                <h3>Cast</h3>
-                <ul>{casts.map(cast => (
-                    <li key={cast.id}>
-                        <p>Name: {cast.name}</p>
-                        <img src={`https://image.tmdb.org/t/p/w300${cast.profile_path}`} alt={cast.name}></img>
-                        <p>Character: {cast.character}</p>
+            <article>                
+                <ul className='castList'>{actors.map(actor => (
+                    <li key={actor.id} className='castList--item'>
+                        <p><b>Name: </b>{actor.name}</p>
+                        {actor.profile_path ?
+                            <img src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`} alt={actor.name}></img>
+                            : <img src='https://movies-mitya.netlify.app/static/media/placeholder.74f5b4f5.png' alt='Not found'></img>                            
+                        }                        
+                        <p><b>Character: </b>{actor.character}</p>
                 </li> ))}</ul>
         </article>)
     }    
 }
 
 export default Cast
-
-
-//     const Cast = (props) => {
-//     const actors = axios.get(`/movie/${props.movieId}/credits?api_key=${ApiKey}&language=en-US`)
-//     console.log('actors:', actors.data)
-//     console.log('Cast')
-//     console.log(props.movieId)
-//     return (<h1>Cast</h1>)
-// }

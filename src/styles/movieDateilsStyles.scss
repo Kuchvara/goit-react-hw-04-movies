@@ -1,0 +1,22 @@
+.movieInfo {
+  display: flex;
+}
+
+.title-box {
+  width: 100%;
+}
+
+.info-box {
+  width: 100%;
+}
+
+.genres-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.addInfo {
+  display: block;
+  text-align: center;
+  padding: 15px;
+}

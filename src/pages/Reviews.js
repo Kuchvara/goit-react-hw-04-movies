@@ -1,30 +1,28 @@
-import axios from 'axios'
 import { Component } from 'react'
-
-// API 
-const ApiKey = '249f222afb1002186f4d88b2b5418b55'
-axios.defaults.baseURL = 'https://api.themoviedb.org/3/'
+import api from '../services/Api.js';
 
 class Reviews extends Component {
     state = {
-        review: ''
+        reviews: []
     }
 
     async componentDidMount() {
         
         try {
-            const response = await axios.get(`movie/${this.props.movieId}/reviews?api_key=${ApiKey}&language=en-US&page=1`)
-            this.setState({ review: response.data.results[0].content })            
+            const response = await api.fetchReviews(this.props.movieId)                
+            this.setState({ reviews: response.data.results })            
         } finally {}       
     }
 
     render() {
-        const review = this.state.review
+        const reviews = this.state.reviews        
+
         return (
-            <article>
-                <h3>Review</h3>
-                {review ? <p>{review}</p> : <p>We do not have review for this movie</p>}                
-            </article>)
+            <article>                
+                {reviews.length > 0 ? reviews.map(review => (<p key={review.id}>{review.content}</p>))
+                    : <p>We do not have review for this movie</p>}
+            </article>
+        )
     }    
 }
 

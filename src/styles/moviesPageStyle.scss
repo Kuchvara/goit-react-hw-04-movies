@@ -1,0 +1,22 @@
+.queryForm {
+  padding: 10px;
+  text-align: center;
+}
+
+.queryForm--input {
+  padding: 10px;
+  margin-right: 30px;
+  border-radius: 5px;
+}
+
+.queryForm--button {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover,
+  :focus {
+    background-color: #4caf50;
+    color: white;
+  }
+}

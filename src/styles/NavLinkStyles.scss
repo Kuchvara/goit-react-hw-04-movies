@@ -1,0 +1,29 @@
+.NavLink {
+  font-size: 20px;
+  display: inline-block;
+  border: none;
+  color: black;
+  padding: 15px 30px;
+  margin-bottom: 15px;
+  border-radius: 2px;
+
+  &:hover,
+  :focus {
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  }
+}
+
+.NavLink--active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.NavList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.NavList--item {
+  margin-right: 20px;
+}

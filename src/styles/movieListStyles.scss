@@ -1,0 +1,23 @@
+.movieList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 20px 20px;
+  grid-template-areas:
+    ". . . "
+    ". . . "
+    ". . . ";
+}
+
+.movieList--item {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 40px;
+
+  &:hover,
+  :focus {
+    box-shadow: 6px 6px 8px 7px rgba(34, 60, 80, 0.2);
+  }
+}
