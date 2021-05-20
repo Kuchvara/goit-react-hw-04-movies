@@ -17,11 +17,18 @@ class MovieDetailsPage extends Component {
         this.setState({movie: response.data})
     }
 
+    handleBack = () => {
+    const { location, history } = this.props;    
+
+    history.push(location?.state?.from || '/');
+    };
+
     render() {
         const { movie } = this.state;        
         
         return (
-            <>                
+            <>
+                <button type='button' onClick={this.handleBack} className='NavLink'>Back</button>    
                 {movie && (<div className='movieInfo'><div className='title-box'><h2>{movie.title} ({movie.release_date})</h2>
                     <img src={`https://www.themoviedb.org/t/p/w500${movie.backdrop_path}`} alt='not found'></img></div>
                     <div className='info-box'> <p><b>User score:</b> {movie.vote_average * 10}%</p>

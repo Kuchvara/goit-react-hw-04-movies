@@ -13,6 +13,7 @@ const fetchMovieData = (movieId) => {
 
 const fetchQuery = (query) => {
     return axios.get(`search/movie?api_key=${ApiKey}&query=${query}&page=1`)
+        
 }
 
 const fetchCast = (movieId) => {
@@ -25,4 +26,4 @@ const fetchReviews = (movieId) => {
 
 
 // eslint-disable-next-line
-export default { fetchTrending, fetchCast, fetchReviews, fetchMovieData, fetchQuery}
+export default { fetchTrending, fetchCast, fetchReviews, fetchMovieData, fetchQuery }

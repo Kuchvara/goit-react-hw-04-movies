@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import api from '../services/Api';
 
 class MoviesPage extends Component {
@@ -32,8 +32,14 @@ class MoviesPage extends Component {
             <ul className='movieList'>
             {movies.length > 0 && (movies.map(movie => (
                 <li key={movie.id} >
-                    <Link className='movieList--item' to={`${this.props.match.url}/${movie.id}`}>
-                        <h4>{movie.title}</h4>                        
+                    <Link className='movieList--item'
+                    to={{
+                        pathname: `${this.props.match.url}/${movie.id}`,
+                        state: {
+                            from: this.props.location,
+                        }
+                    }}>
+                        <h4>{movie.title}</h4>
                     </Link>
                 </li>
             )))}
@@ -43,4 +49,4 @@ class MoviesPage extends Component {
     }
 }
 
-export default MoviesPage;
+export default withRouter(MoviesPage);

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import api from '../services/Api';
 
 class HomePage extends Component {
@@ -18,15 +18,22 @@ class HomePage extends Component {
 
     return (<ul className='movieList'>     
       {movies.length > 0 && (movies.map(movie => (
-        <li key={movie.id} className='movieList--item'> <Link to={`/movies/${movie.id}`}>
+        <li key={movie.id} className='movieList--item'>
+          <Link to={{
+            pathname: `/movies/${movie.id}`,
+            state: {
+              from: this.props.location,
+            }
+          }}>
           <h4>{movie.title}</h4>
           <img src={`https://www.themoviedb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}></img>
-        </Link> </li>
+          </Link>
+        </li>
       )))}
       </ul>
     )
   }
 }
 
-export default HomePage;
+export default withRouter(HomePage);
