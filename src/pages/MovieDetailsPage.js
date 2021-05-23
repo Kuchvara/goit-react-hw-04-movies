@@ -18,7 +18,10 @@ class MovieDetailsPage extends Component {
     }
 
     handleBack = () => {
-    const { location, history } = this.props;    
+        const { location, history } = this.props;
+    
+        console.log('location', location)
+        console.log('history', history)
 
     history.push(location?.state?.from || '/');
     };
@@ -41,11 +44,19 @@ class MovieDetailsPage extends Component {
                 <b className='addInfo'>Aditional information:</b>
                 <ul className='NavList'>
                     <li className='NavList--item'>
-                        <NavLink to={`${this.props.match.url}/cast`}
+                        <NavLink 
+                            to={{
+                            pathname: `${this.props.match.url}/cast`,
+                                state: {from: this.props.location}
+                            }}
                         className='NavLink' activeClassName='NavLink--active' >Cast</NavLink>
                     </li>
                     <li className='NavList--item'>
-                        <NavLink to={`${this.props.match.url}/reviews`}
+                        <NavLink
+                            to={{
+                            pathname: `${this.props.match.url}/reviews`,
+                                state: {from: this.props.location}
+                            }}                            
                         className='NavLink' activeClassName='NavLink--active' >Reviews</NavLink>
                     </li>
                 </ul>                                    
@@ -56,4 +67,5 @@ class MovieDetailsPage extends Component {
     }
 }
 
-export default MovieDetailsPage;
+// export default withRouter(MovieDetailsPage);
+export default MovieDetailsPage

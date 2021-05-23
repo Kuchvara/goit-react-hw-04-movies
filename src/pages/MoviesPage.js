@@ -8,12 +8,35 @@ class MoviesPage extends Component {
         movies: []
     }
 
+    componentDidMount() {
+        // console.log('mount', this.props)
+        const { search, pathname } = this.props.location;
+
+        if (search && pathname) {
+      this.setState({
+        query: search,
+      });
+    }
+    }
+
+componentDidUpdate(prevProps, prevState) {   
+        // console.log('update', this.props.location.search)
+        if (prevState.query !== this.state.query) {
+      this.handleSubmit();}
+    }
+    
     onSearchChange = event => {
-        this.setState({ query: event.currentTarget.value})
+        const { history } = this.props;               
+        
+        history.push({
+        search: `${event.currentTarget.value}`,
+        });
+
+        this.setState({ query: event.currentTarget.value })
     }
 
     handleSubmit = event => {
-        event.preventDefault();        
+        // event.preventDefault();    
 
         api.fetchQuery(this.state.query).then(response => this.setState({ movies: response.data.results }))
     }    
