@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import Cast from './Cast';
 import Reviews from './Reviews';
 import api from '../services/Api';
@@ -11,19 +11,17 @@ class MovieDetailsPage extends Component {
     
     async componentDidMount() {
         const movieId = this.props.match.params.movieId
-        const response = await api.fetchMovieData(movieId)
-        
+        const response = await api.fetchMovieData(movieId)        
         
         this.setState({movie: response.data})
     }
 
     handleBack = () => {
-        const { location, history } = this.props;
-    
-        console.log('location', location)
-        console.log('history', history)
+        const { location, history } = this.props;    
+        
+        // console.log('history', history)        
 
-    history.push(location?.state?.from || '/');
+        history.push(location?.state?.from  || '/');
     };
 
     render() {
@@ -47,7 +45,7 @@ class MovieDetailsPage extends Component {
                         <NavLink 
                             to={{
                             pathname: `${this.props.match.url}/cast`,
-                                state: {from: this.props.location}
+                                state: {...this.props.location.state}
                             }}
                         className='NavLink' activeClassName='NavLink--active' >Cast</NavLink>
                     </li>
@@ -55,17 +53,18 @@ class MovieDetailsPage extends Component {
                         <NavLink
                             to={{
                             pathname: `${this.props.match.url}/reviews`,
-                                state: {from: this.props.location}
+                                state: {...this.props.location.state}
                             }}                            
                         className='NavLink' activeClassName='NavLink--active' >Reviews</NavLink>
                     </li>
-                </ul>                                    
-                <Route path={`${this.props.match.path}/cast`} render={props => <Cast {...props} movieId={movie.id}/>}/>
-                <Route path={`${this.props.match.path}/reviews`} render={props => <Reviews {...props} movieId={movie.id}/>}/>                
+                </ul>
+                <Switch>
+                <Route exact path={`${this.props.match.path}/cast`} render={props => <Cast {...props} movieId={movie.id}/>}/>
+                <Route exact path={`${this.props.match.path}/reviews`} render={props => <Reviews {...props} movieId={movie.id}/>}/>                
+                </Switch>
             </>
         )        
     }
 }
 
-// export default withRouter(MovieDetailsPage);
 export default MovieDetailsPage

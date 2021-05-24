@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from '../services/Api';
 
 class HomePage extends Component {
@@ -36,4 +36,4 @@ class HomePage extends Component {
   }
 }
 
-export default withRouter(HomePage);
+export default HomePage

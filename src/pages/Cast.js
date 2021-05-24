@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import api from '../services/Api.js';
 
 class Cast extends Component {
@@ -30,4 +30,4 @@ class Cast extends Component {
     }    
 }
 
-export default withRouter(Cast)
+export default Cast

@@ -1,6 +1,7 @@
 import { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from '../services/Api';
+import SearchForm from '../Components/SearchForm';
 
 class MoviesPage extends Component {
     state = {
@@ -8,36 +9,31 @@ class MoviesPage extends Component {
         movies: []
     }
 
-    componentDidMount() {
-        // console.log('mount', this.props)
+    componentDidMount() {      
         const { search, pathname } = this.props.location;
 
         if (search && pathname) {
-      this.setState({
-        query: search,
-      });
-    }
+         this.setState({
+         query: search,
+        })}
     }
 
-componentDidUpdate(prevProps, prevState) {   
-        // console.log('update', this.props.location.search)
-        if (prevState.query !== this.state.query) {
-      this.handleSubmit();}
+    componentDidUpdate(prevProps, prevState) {         
+    if (prevState.query !== this.state.query)
+    {this.handleSubmit()}
     }
     
-    onSearchChange = event => {
-        const { history } = this.props;               
+    onSearchChange = query => {
+        const { history } = this.props;
+
+        this.setState({ query: query })
         
         history.push({
-        search: `${event.currentTarget.value}`,
-        });
-
-        this.setState({ query: event.currentTarget.value })
+        search: `${query}`,
+        });        
     }
 
-    handleSubmit = event => {
-        // event.preventDefault();    
-
+    handleSubmit = () => {
         api.fetchQuery(this.state.query).then(response => this.setState({ movies: response.data.results }))
     }    
 
@@ -45,13 +41,7 @@ componentDidUpdate(prevProps, prevState) {
         const { movies } = this.state        
 
         return (<>
-            <form onSubmit={this.handleSubmit} className='queryForm'>
-                <input
-                    onChange={this.onSearchChange}
-                    className='queryForm--input'
-                />
-                <button type='submit' className='queryForm--button'>Search</button>
-            </form>
+            <SearchForm onSearch={this.onSearchChange}/>            
             <ul className='movieList'>
             {movies.length > 0 && (movies.map(movie => (
                 <li key={movie.id} >
@@ -72,4 +62,4 @@ componentDidUpdate(prevProps, prevState) {
     }
 }
 
-export default withRouter(MoviesPage);
+export default MoviesPage
